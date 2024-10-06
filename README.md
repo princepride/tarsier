@@ -132,13 +132,13 @@ Tarsier is evluated on 7 commonly used video understanding benchmarks, including
 # Usage
 This section provides guidance on how to run, evaluate and deploy Tarsier.
 ## Setup
-Following all are running under the environment of python 3.9. If you are not using python 3.9, you can create a virtual environment with:
+Following all are running under the environment of python 3.10. If you are not using python 3.10, you can create a virtual environment with:
 ```
-conda create -n tarsier python=3.9
+conda create -n tarsier python=3.10
 ```
 Then run the setup script:
 ```bash
-git clone https://github.com/bytedance/tarsier.git
+git clone https://github.com/princepride/tarsier.git
 cd tarsier
 
 bash setup.sh

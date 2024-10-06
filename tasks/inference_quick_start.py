@@ -72,6 +72,74 @@ def run():
         print(f"Prediction: {pred}")
         print('-'*100)
 
+def run_model(
+    model_name_or_path, 
+    instruction="", 
+    input_path="assets/examples", 
+    max_n_frames=8, 
+    max_new_tokens=512, 
+    top_p=1.0, 
+    temperature=0.0
+):
+    """
+    Function to process video or image files based on a given model and generate predictions.
+    
+    Args:
+        model_name_or_path (str): Path to the model or model identifier.
+        instruction (str): Input prompt or instruction for generation.
+        input_path (str): Path to video/image or directory containing videos/images.
+        max_n_frames (int): Max number of frames to sample from video.
+        max_new_tokens (int): Max number of tokens to generate.
+        top_p (float): Top_p sampling value for generation.
+        temperature (float): Temperature for controlling randomness in generation.
+        
+    Returns:
+        None
+    """
+
+    # Load model and processor
+    model, processor = load_model_and_processor(model_name_or_path, max_n_frames=max_n_frames)
+
+    # Prepare generation arguments
+    generate_kwargs = {
+        "do_sample": True if temperature > 0 else False,
+        "max_new_tokens": max_new_tokens,
+        "top_p": top_p,
+        "temperature": temperature,
+        "use_cache": True
+    }
+
+    # Check if input path exists
+    assert os.path.exists(input_path), f"input_path not exist: {input_path}"
+
+    # Check if input path is a directory or a single file
+    if os.path.isdir(input_path):
+        input_files = [os.path.join(input_path, fn) for fn in os.listdir(input_path) if get_visual_type(fn) in ['video', 'gif', 'image']]
+    elif get_visual_type(input_path) in ['video', 'gif', 'image']:
+        input_files = [input_path]
+    else:
+        input_files = []
+
+    # Ensure there are valid input files
+    assert len(input_files) > 0, f"None valid input file in: {input_path} {VALID_DATA_FORMAT_STRING}"
+
+    # Process each input file
+    for input_file in tqdm(input_files, desc="Generating..."):
+        visual_type = get_visual_type(input_file)
+
+        # Generate prompt
+        if instruction:
+            prompt = "<video>\n" + instruction.replace("<image>", "").replace("<video>", "")
+        else:
+            if visual_type == 'image':
+                prompt = "<image>\nDescribe the image in detail."
+            else:
+                prompt = "<video>\nDescribe the video in detail."
+
+        # Run the model to get prediction
+        pred = process_one(model, processor, prompt, input_file, generate_kwargs)
+        print(f"Prediction: {pred}")
+        print('-'*100)
         
 if __name__ == "__main__":
     run()

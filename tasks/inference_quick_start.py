@@ -124,6 +124,7 @@ def run_model(
     assert len(input_files) > 0, f"None valid input file in: {input_path} {VALID_DATA_FORMAT_STRING}"
 
     # Process each input file
+    res = []
     for input_file in tqdm(input_files, desc="Generating..."):
         visual_type = get_visual_type(input_file)
 
@@ -138,8 +139,8 @@ def run_model(
 
         # Run the model to get prediction
         pred = process_one(model, processor, prompt, input_file, generate_kwargs)
-        print(f"Prediction: {pred}")
-        print('-'*100)
+        res.append(pred)
+    return res
         
 if __name__ == "__main__":
     run()

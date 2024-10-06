@@ -81,17 +81,6 @@ def run_model(
     top_p=1.0, 
     temperature=0.0
 ):
-    """
-    Function to process video or image files based on a given model and generate predictions.
-    
-    Args:
-        model_name_or_path (str): Path to the model or model identifier.
-        instruction (str): Input prompt or instruction for generation.
-        input_path (str): Path to video/image or directory containing videos/images.
-        max_n_frames (int): Max number of frames to sample from video.
-        max_new_tokens (int): Max number of tokens to generate.
-        top_p (float): Top_p sampling value for generation.
-        temperature (float): Temperature for controlling randomness in generation.
 
     # Prepare generation arguments
     generate_kwargs = {

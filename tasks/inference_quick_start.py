@@ -73,10 +73,10 @@ def run():
         print('-'*100)
 
 def run_model(
-    model_name_or_path, 
+    model, 
+    processor,
     instruction="", 
     input_path="assets/examples", 
-    max_n_frames=8, 
     max_new_tokens=512, 
     top_p=1.0, 
     temperature=0.0
@@ -92,13 +92,6 @@ def run_model(
         max_new_tokens (int): Max number of tokens to generate.
         top_p (float): Top_p sampling value for generation.
         temperature (float): Temperature for controlling randomness in generation.
-        
-    Returns:
-        None
-    """
-
-    # Load model and processor
-    model, processor = load_model_and_processor(model_name_or_path, max_n_frames=max_n_frames)
 
     # Prepare generation arguments
     generate_kwargs = {

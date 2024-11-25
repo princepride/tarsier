@@ -1,20 +1,38 @@
 {
     "version": "0.2.0",
+    // "configurations": [
+    //   {
+    //     "name": "Python: Inference Quick Start",
+    //     "type": "debugpy",
+    //     "request": "launch",
+    //     "program": "${workspaceFolder}/tasks/inference_quick_start.py",
+    //     "args": [
+    //       "--model_name_or_path", "omni-research/Tarsier-7b",
+    //       "--instruction", "Describe the video in detail.",
+    //       "--input_path", "assets/videos/coffee.gif"
+    //     ],
+    //     "console": "integratedTerminal",
+    //     "env": {
+    //       "PYTHONPATH": "${workspaceFolder}"
+    //     }
+    //   }
+    // ]
+
     "configurations": [
-      {
-        "name": "Python: Inference Quick Start",
-        "type": "debugpy",
-        "request": "launch",
-        "program": "${workspaceFolder}/tasks/inference_quick_start.py",
-        "args": [
-          "--model_name_or_path", "omni-research/Tarsier-7b",
-          "--instruction", "Describe the video in detail.",
-          "--input_path", "assets/videos/coffee.gif"
-        ],
-        "console": "integratedTerminal",
-        "env": {
-          "PYTHONPATH": "${workspaceFolder}"
+        {
+          "name": "Python: Inference Quick Start",
+          "type": "debugpy",
+          "request": "launch",
+          "program": "${workspaceFolder}/tasks/inference_benchmark.py",
+          "args": [
+            "--model_name_or_path", "omni-research/Tarsier-7b",
+            "--output_dir", "output",
+            "--benchmarks", "dream"
+          ],
+          "console": "integratedTerminal",
+          "env": {
+            "PYTHONPATH": "${workspaceFolder}"
+          }
         }
-      }
-    ]
+      ]
   }
